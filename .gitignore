@@ -1,0 +1,40 @@
+.DS_Store
+
+# .NET Core
+project.lock.json
+*.user
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio files
+.vscode
+*.VS/
+_*.suo
+*.suo
+*.user
+*.dll
+*.exe
+*.tmp
+*.tmp_proj
+*.log
+*.jtf
+*.jtt
+*.SVQ
+*.SVQ.VIM
+*.pidb
+*.sqlite
+*.pfx
+
+# Program artifacts
+Data/*.txt
+Data/*.tmp
