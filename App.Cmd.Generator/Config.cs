@@ -6,7 +6,6 @@ public class Config
     private const string DefaultFileSizeLimit = "10GB";
     public readonly string OutputFilePath;
     public readonly long FileSizeLimit;
-    private readonly List<Option> _options;
 
     public static Config Load(string[] args)
     {
@@ -34,12 +33,11 @@ public class Config
 
         cmd.Invoke(args);
 
-        return new Config(options, outputFilePath, fileSizeLimit);
+        return new Config(outputFilePath, fileSizeLimit);
     }
 
-    public Config(List<Option> options, string outputFilePath, long fileSizeLimit)
+    public Config(string outputFilePath, long fileSizeLimit)
     {
-        _options = options;
         OutputFilePath = outputFilePath;
         FileSizeLimit = fileSizeLimit;
     }
