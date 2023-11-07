@@ -1,4 +1,5 @@
 using System.CommandLine;
+using Foundation.Parsers.MemorySizeParser;
 
 public class Config
 {
@@ -18,7 +19,7 @@ public class Config
         options.Add(outputFilePathOption);
 
         var fileSizeLimitOption = new Option<long>("--file-size-limit", () =>
-            ParseFileSize(Environment.GetEnvironmentVariable("FILE_SIZE_LIMIT") ?? DefaultFileSizeLimit), $"File size limit in bytes (default: {DefaultFileSizeLimit})");
+            MemorySizeParser.Parse(Environment.GetEnvironmentVariable("FILE_SIZE_LIMIT") ?? DefaultFileSizeLimit), $"File size limit in bytes (default: {DefaultFileSizeLimit})");
         cmd.AddOption(fileSizeLimitOption);
         options.Add(fileSizeLimitOption);
 
@@ -48,21 +49,5 @@ public class Config
         Console.WriteLine("Current Configuration:");
         Console.WriteLine($"Output File Path: {OutputFilePath}");
         Console.WriteLine($"File Size Limit: {FileSizeLimit} bytes ({FileSizeLimit / 1024 / 1024 / 1024} GB)");
-    }
-
-    private static long ParseFileSize(string input)
-    {
-        if (input.EndsWith("MB", StringComparison.OrdinalIgnoreCase))
-        {
-            return Convert.ToInt64(input.TrimEnd("MB".ToCharArray())) * 1024 * 1024;
-        }
-        else if (input.EndsWith("GB", StringComparison.OrdinalIgnoreCase))
-        {
-            return Convert.ToInt64(input.TrimEnd("GB".ToCharArray())) * 1024 * 1024 * 1024;
-        }
-        else
-        {
-            throw new ArgumentException("Invalid file size format. Use '10MB' or '10GB'.");
-        }
     }
 }

@@ -10,6 +10,9 @@ run-gen-docker-interactive: build-gen
 run-gen:
 	cd App.Cmd.Generator && FILE_SIZE_LIMIT=$(FILE_SIZE_LIMIT) OUTPUT_FILE_PATH=$(OUTPUT_FILE_PATH) dotnet run
 
+run-sort:
+	cd App.Cmd.Sorter && dotnet run
+
 ifeq ($(origin FILE_SIZE_LIMIT), undefined)
     FILE_SIZE_LIMIT := 10GB
 endif
