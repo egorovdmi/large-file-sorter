@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Foundation.Logger\Foundation.Logger.csproj" />
+    <ProjectReference Include="../Foundation/Foundation.csproj" />
   </ItemGroup>
 
 </Project>

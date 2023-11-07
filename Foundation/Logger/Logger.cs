@@ -1,4 +1,4 @@
-﻿namespace Foundation.Logger;
+﻿namespace Foundation.Logging;
 
 public interface ILogger
 {

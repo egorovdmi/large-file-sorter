@@ -1,5 +1,4 @@
-﻿using System;
-using Foundation.Logger;
+﻿using Foundation.Logging;
 
 class Program
 {
