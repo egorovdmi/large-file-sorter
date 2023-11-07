@@ -7,7 +7,7 @@ public class Config
     public readonly string OutputFilePath;
     public readonly long FileSizeLimit;
 
-    public static Config Load(string[] args)
+    public static (Config config, bool isHelpRequested) Load(string[] args)
     {
         var cmd = new RootCommand();
         var options = new List<Option>();
@@ -33,7 +33,7 @@ public class Config
 
         cmd.Invoke(args);
 
-        return new Config(outputFilePath, fileSizeLimit);
+        return (new Config(outputFilePath, fileSizeLimit), args.Contains("-h"));
     }
 
     public Config(string outputFilePath, long fileSizeLimit)

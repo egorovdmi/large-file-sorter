@@ -1,13 +1,13 @@
-﻿namespace Foundation.Logging;
+﻿namespace Foundation.Logger;
 
 public interface ILogger
 {
-    void WriteLine(string message);
+    void Info(string message);
 }
 
 public class Logger : ILogger
 {
-    public void WriteLine(string message)
+    public void Info(string message)
     {
         Console.WriteLine(message);
     }

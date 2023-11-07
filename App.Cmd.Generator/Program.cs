@@ -1,11 +1,13 @@
-﻿using Foundation.Logging;
+﻿using System.Diagnostics;
+using Business.Core.Generator;
+using Foundation.Logger;
 
 class Program
 {
     static void Main(string[] args)
     {
-        var cfg = Config.Load(args);
-        if (args.Contains("-h"))
+        var (cfg, isHelpRequested) = Config.Load(args);
+        if (isHelpRequested)
         {
             return;
         }
@@ -13,6 +15,13 @@ class Program
         cfg.Info();
 
         var logger = new Logger();
-        logger.WriteLine("Hello World!");
+        var generator = new TestFileGenerator(logger);
+
+        generator.Generate(cfg.FileSizeLimit, cfg.OutputFilePath);
+
+        Process currentProcess = Process.GetCurrentProcess();
+        long memoryUsed = currentProcess.WorkingSet64;
+
+        logger.Info($"Memory used: {(double)memoryUsed / 1024 / 1024 / 1024:0.00} GB");
     }
 }
