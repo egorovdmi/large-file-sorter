@@ -1,4 +1,5 @@
 ﻿using System;
+using Foundation.Logger;
 
 class Program
 {
@@ -12,7 +13,7 @@ class Program
 
         cfg.Info();
 
-        Thread.Sleep(10000);
-        Console.WriteLine("Hello World!");
+        var logger = new Logger();
+        logger.WriteLine("Hello World!");
     }
 }
