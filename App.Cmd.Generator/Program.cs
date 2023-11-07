@@ -17,11 +17,14 @@ class Program
         var logger = new Logger();
         var generator = new TestFileGenerator(logger);
 
+        Stopwatch stopwatch = Stopwatch.StartNew();
         generator.Generate(cfg.FileSizeLimit, cfg.OutputFilePath);
+        stopwatch.Stop();
 
         Process currentProcess = Process.GetCurrentProcess();
         long memoryUsed = currentProcess.WorkingSet64;
 
-        logger.Info($"Memory used: {(double)memoryUsed / 1024 / 1024 / 1024:0.00} GB");
+        logger.Info($"Time spent: {stopwatch.Elapsed}");
+        logger.Info($"Amount of physical memory, in bytes, allocated: {(double)memoryUsed / 1024 / 1024 / 1024:0.00} GB");
     }
 }
