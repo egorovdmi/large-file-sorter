@@ -6,10 +6,14 @@ using Foundation.Parsers.MemorySizeParser;
 
 public class Config
 {
-    private const string DefaultOutputFilePath = "../Data/testfile.txt";
+    private const string DefaultInputFilePath = "../Data/testfile.txt";
+    private const string DefaultOutputFilePath = "../Data/testfile_sorted.txt";
     private const string DefaultMemoryLimit = "16GB";
     private const string DefaultTempDir = "../Data/Temp";
+    public readonly int MaxParallelTasks = Environment.ProcessorCount;
+    public readonly int BufferSize = 8 * 1024 * 1024; // 8 MB buffer as we use SSD drive and write big files
 
+    public readonly string InputFilePath;
     public readonly string OutputFilePath;
     public readonly long MemoryLimit;
     public readonly string TempDir;
@@ -18,32 +22,37 @@ public class Config
     {
         var cmd = new RootCommand();
 
-        var outputFilePathOption = new Option<string>("--file-path", () => Environment.GetEnvironmentVariable("FILE_PATH") ?? DefaultOutputFilePath, $"File path (default: '{DefaultOutputFilePath}')");
+        var inputFilePathOption = new Option<string>("--input-file-path", () => Environment.GetEnvironmentVariable("INPUT_FILE_PATH") ?? DefaultInputFilePath, $"File path (default: '{DefaultInputFilePath}')");
+        var outputFilePathOption = new Option<string>("--output-file-path", () => Environment.GetEnvironmentVariable("OUTPUT_FILE_PATH") ?? DefaultOutputFilePath, $"Output file path (default: '{DefaultOutputFilePath}')");
         var memoryLimitOption = new Option<long>("--memory-limit", () => MemorySizeParser.Parse(Environment.GetEnvironmentVariable("MEMORY_LIMIT") ?? DefaultMemoryLimit), $"Memory limit in bytes (default: {DefaultMemoryLimit})");
         var tempDirOption = new Option<string>("--temp-dir", () => Environment.GetEnvironmentVariable("TEMP_DIR") ?? DefaultTempDir, $"Temp directory path (default: '{DefaultTempDir}')");
 
+        cmd.AddOption(inputFilePathOption);
         cmd.AddOption(outputFilePathOption);
         cmd.AddOption(memoryLimitOption);
         cmd.AddOption(tempDirOption);
 
         string outputFilePath = "";
+        string inputFilePath = "";
         long memoryLimit = 0;
         string tempDir = "";
 
-        cmd.SetHandler((value1, value2, value3) =>
+        cmd.SetHandler((value1, value2, value3, value4) =>
         {
-            outputFilePath = value1;
-            memoryLimit = value2;
-            tempDir = value3;
-        }, outputFilePathOption, memoryLimitOption, tempDirOption);
+            inputFilePath = value1;
+            outputFilePath = value2;
+            memoryLimit = value3;
+            tempDir = value4;
+        }, inputFilePathOption, outputFilePathOption, memoryLimitOption, tempDirOption);
 
         cmd.Invoke(args);
 
-        return (new Config(outputFilePath, memoryLimit, tempDir), args.Contains("-h"));
+        return (new Config(inputFilePath, outputFilePath, memoryLimit, tempDir), args.Contains("-h"));
     }
 
-    public Config(string outputFilePath, long memoryLimit, string tempDir)
+    public Config(string inputFilePath, string outputFilePath, long memoryLimit, string tempDir)
     {
+        InputFilePath = inputFilePath;
         OutputFilePath = outputFilePath;
         MemoryLimit = memoryLimit;
         TempDir = tempDir;
@@ -52,7 +61,8 @@ public class Config
     public void Info()
     {
         Console.WriteLine("Current Configuration:");
-        Console.WriteLine($"File Path: {OutputFilePath}");
+        Console.WriteLine($"Input File Path: {InputFilePath}");
+        Console.WriteLine($"Output File Path: {OutputFilePath}");
         Console.WriteLine($"Memory Limit: {MemoryLimit} bytes ({MemoryLimit / 1024 / 1024 / 1024} GB)");
         Console.WriteLine($"Temp Directory: {TempDir}");
     }

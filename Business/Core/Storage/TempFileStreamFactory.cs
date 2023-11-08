@@ -28,6 +28,11 @@ public class TempFilesStreamFactory : IStreamFactory
         return new StreamWriter($"{this.workingDirectory}/{streamID}.tmp", false, Encoding.UTF8, this.bufferSize);
     }
 
+    public void DeleteStreamSource(string streamID)
+    {
+        File.Delete(this.GetStreamSourcePath(streamID));
+    }
+
     public string GetStreamSourcePath(string streamID)
     {
         return $"{this.workingDirectory}/{streamID}.tmp";
