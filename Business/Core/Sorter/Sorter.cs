@@ -90,9 +90,17 @@ public class Sorter
 
         while (chunkIDs.Count > 1)
         {
+            int maxTheads = Environment.ProcessorCount;
             List<Task> workers = new List<Task>();
             for (int i = 0; i < chunkIDs.Count; i += 2)
             {
+                if (workers.Count == maxTheads)
+                {
+                    this._logger.Info($"Reached max threads: {maxTheads}. Waiting for workers to finish...");
+                    Task.WaitAll(workers.ToArray());
+                    workers.Clear();
+                }
+
                 if (i + 1 < chunkIDs.Count)
                 {
                     string chunkID1 = chunkIDs[i];
