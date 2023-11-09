@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . ./
 
-WORKDIR /app/App.Cmd.Generator
+WORKDIR /app/App.Cmd.Sorter
 RUN dotnet restore
 
 VOLUME /app/Data
