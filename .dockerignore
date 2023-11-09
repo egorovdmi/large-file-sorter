@@ -1,0 +1,32 @@
+# Folders and files that are usually not needed in a Docker container for .NET Core
+
+# Ignore the bin and obj directories
+bin/
+obj/
+
+# Ignore files built by Visual Studio
+.vs/
+*.user
+*.suo
+*.vscode/
+*.sln
+*.csproj.user
+*.userprefs
+project.lock.json
+.DS_Store
+nuget/
+packages/
+npm-debug.log
+
+# Ignore logs and other temporary files
+*.log
+*.logs
+*.swp
+.DS_Store
+Thumbs.db
+
+# Ignore files that may contain sensitive or personal information
+appsettings.Development.json
+
+# Data directory
+Data
