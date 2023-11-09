@@ -22,10 +22,10 @@ public class Config
     {
         var cmd = new RootCommand();
 
-        var inputFilePathOption = new Option<string>("--input-file-path", () => Environment.GetEnvironmentVariable("INPUT_FILE_PATH") ?? DefaultInputFilePath, $"File path (default: '{DefaultInputFilePath}')");
-        var outputFilePathOption = new Option<string>("--output-file-path", () => Environment.GetEnvironmentVariable("OUTPUT_FILE_PATH") ?? DefaultOutputFilePath, $"Output file path (default: '{DefaultOutputFilePath}')");
-        var memoryLimitOption = new Option<long>("--memory-limit", () => MemorySizeParser.Parse(Environment.GetEnvironmentVariable("MEMORY_LIMIT") ?? DefaultMemoryLimit), $"Memory limit in bytes (default: {DefaultMemoryLimit})");
-        var tempDirOption = new Option<string>("--temp-dir", () => Environment.GetEnvironmentVariable("TEMP_DIR") ?? DefaultTempDir, $"Temp directory path (default: '{DefaultTempDir}')");
+        var inputFilePathOption = new Option<string>("--input-file-path", () => Environment.GetEnvironmentVariable("INPUT_FILE_PATH") ?? DefaultInputFilePath, $"File path");
+        var outputFilePathOption = new Option<string>("--output-file-path", () => Environment.GetEnvironmentVariable("OUTPUT_FILE_PATH") ?? DefaultOutputFilePath, $"Output file path");
+        var memoryLimitOption = new Option<string>("--memory-limit", () => Environment.GetEnvironmentVariable("MEMORY_LIMIT") ?? DefaultMemoryLimit, $"Memory limit in bytes");
+        var tempDirOption = new Option<string>("--temp-dir", () => Environment.GetEnvironmentVariable("TEMP_DIR") ?? DefaultTempDir, $"Temp directory path");
 
         cmd.AddOption(inputFilePathOption);
         cmd.AddOption(outputFilePathOption);
@@ -41,7 +41,7 @@ public class Config
         {
             inputFilePath = value1;
             outputFilePath = value2;
-            memoryLimit = value3;
+            memoryLimit = MemorySizeParser.Parse(value3);
             tempDir = value4;
         }, inputFilePathOption, outputFilePathOption, memoryLimitOption, tempDirOption);
 

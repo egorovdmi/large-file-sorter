@@ -14,12 +14,12 @@ public class Config
         var options = new List<Option>();
 
         var outputFilePathOption = new Option<string>("--output-file-path", () =>
-            Environment.GetEnvironmentVariable("OUTPUT_FILE_PATH") ?? DefaultOutputFilePath, $"Output file path (default: '{DefaultOutputFilePath}')");
+            Environment.GetEnvironmentVariable("OUTPUT_FILE_PATH") ?? DefaultOutputFilePath, $"Output file path");
         cmd.AddOption(outputFilePathOption);
         options.Add(outputFilePathOption);
 
         var fileSizeLimitOption = new Option<long>("--file-size-limit", () =>
-            MemorySizeParser.Parse(Environment.GetEnvironmentVariable("FILE_SIZE_LIMIT") ?? DefaultFileSizeLimit), $"File size limit in bytes (default: {DefaultFileSizeLimit})");
+            MemorySizeParser.Parse(Environment.GetEnvironmentVariable("FILE_SIZE_LIMIT") ?? DefaultFileSizeLimit), $"File size limit in bytes");
         cmd.AddOption(fileSizeLimitOption);
         options.Add(fileSizeLimitOption);
 
