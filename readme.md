@@ -68,7 +68,7 @@ Files and directories:
 make run-gen
 ```
 
-#### To run the sorter with a default preset:
+#### To run the sorter with a default preset (32GB memory settings, adjust the bat file if needed):
 
 ```
 make run-sort
