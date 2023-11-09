@@ -15,12 +15,12 @@ Files and directories:
 ## REQUIREMENTS
 
 - Visual Studio Code.
-- .NET Core 7 x64.
+- .NET Core 7 SDK x64.
 - Internet access for packages downloading.
 
 ## IMPORTANT!!! FOR WINDOWS
 
-**.NET Core 7 x64** must be installed and set in PATH of environment to run in x64 mode to increase performance and address more physical memory (otherwise it would fail with OutOfMemory exception).
+**.NET Core 7 SDK x64** must be installed and set in PATH of environment to run in x64 mode to increase performance and address more physical memory (otherwise it would fail with OutOfMemory exception).
 
 1. Open VS Code in the source folder.
 2. Run the following commands in a terminal of VS Code:
