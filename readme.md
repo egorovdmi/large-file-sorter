@@ -6,11 +6,11 @@ Application that can sort large files up to 100GB.
 
 Files and directories:
 
-      App.Cmd.Generator/                       Generator application
-      App.Cmd.Sorter/                          Sorter application
-      Business/                                Business logic
-      Foundation/                              Kit packages
-      Data/                                    Default directory for writing output files
+      App.Cmd.Generator/            Generator application
+      App.Cmd.Sorter/               Sorter application
+      Business/                     Business logic
+      Foundation/                   Foundation/Kit packages
+      Data/                         Default directory for writing output files
 
 ## REQUIREMENTS
 
